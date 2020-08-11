@@ -2,27 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/action_home">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.sanekt.eviz.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/action_home"
+        android:name="com.sanekt.eviz.presentation.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.sanekt.eviz.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/action_create"
+        android:name="com.sanekt.eviz.presentation.create.CreateFragment"
+        android:label="@string/create"
+        tools:layout="@layout/create_fragment" />
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+    <fragment
+        android:id="@+id/action_account"
+        android:name="com.sanekt.eviz.presentation.account.AccountFragment"
+        android:label="@string/account"
+        tools:layout="@layout/account_fragment" />
 </navigation>
