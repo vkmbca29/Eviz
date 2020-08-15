@@ -8,6 +8,9 @@
         <variable
             name="item"
             type="String" />
+        <variable
+            name="view"
+            type="com.sanekt.eviz.MainActivity"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

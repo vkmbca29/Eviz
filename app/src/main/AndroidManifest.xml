@@ -19,6 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".DragDropTwoActivity" />
+        <activity android:name=".ViewDragDropActivity" />
+        <!--        <activity android:name=".MainActivity" />-->
     </application>
 
 </manifest>

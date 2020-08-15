@@ -10,15 +10,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.sanekt.eviz.presentation.items.ItemsAdapter
 import com.sanekt.eviz.R
 import com.sanekt.eviz.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
+    lateinit var touchHelper: ItemTouchHelper
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +44,9 @@ class HomeFragment : Fragment() {
 
         recyclerView.layoutManager = layoutManager
         recyclerView.hasFixedSize()
-        recyclerView.adapter = ItemsAdapter()
+        recyclerView.adapter = ItemsAdapter(requireContext())
         recyclerView.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
 
         binding.viewModel = viewModel
     }
-
 }
