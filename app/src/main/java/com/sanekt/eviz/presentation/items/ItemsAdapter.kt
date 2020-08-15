@@ -2,23 +2,31 @@
 
 package com.sanekt.eviz.presentation.items
 
+import android.content.Context
+import android.content.Intent
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import com.sanekt.eviz.DragDropTwoActivity
+import com.sanekt.eviz.MainActivity
 import com.sanekt.eviz.R
 import com.sanekt.eviz.databinding.ItemViewBinding
+import kotlinx.android.synthetic.main.item_view.view.*
+import java.util.*
 
-class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
+class ItemsAdapter(private var context: Context) : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
 
     private var items: List<String> = emptyList()
 
     private val loading = 0
     private val item = 1
-
+    private var context1:Context?=null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        context1=context
         return ItemViewHolder(parent)
     }
 
@@ -27,6 +35,11 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (holder is ItemViewHolder && items.size > position) {
             holder.bind(items[position])
+        }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context1, DragDropTwoActivity::class.java)
+            intent.putExtra("text",items[position])
+            context1?.startActivity(intent)
         }
     }
 
