@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@android:color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -66,57 +67,69 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Search your card"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_layout" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.20" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/MyCardList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_goneMarginBottom="30dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        app:layout_goneMarginBottom="30dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.92" />
+
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
 
         >
+
         <ImageView
             android:id="@+id/create_new"
             android:layout_width="100dp"
             android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_alignParentStart="true"
             android:src="@mipmap/create_new_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <ImageView
             android:layout_width="30dp"
             android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/settings_24"
-            android:layout_marginEnd="20dp"
             android:layout_alignParentEnd="true"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/settings_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </RelativeLayout>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
