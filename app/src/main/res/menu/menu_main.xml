@@ -1,18 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.sanekt.eviz.MainActivity">
     <item
-        android:id="@+id/action_home"
-        android:enabled="true"
-        android:icon="@drawable/ic_simple"
-        android:title="@string/home"/>
-    <item
-        android:id="@+id/action_create"
-        android:enabled="true"
-        android:icon="@drawable/ic_other"
-        android:title="@string/create" />
-    <item
-        android:id="@+id/action_account"
-        android:enabled="true"
-        android:icon="@drawable/ic_other"
-        android:title="@string/account"/>
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
 </menu>
