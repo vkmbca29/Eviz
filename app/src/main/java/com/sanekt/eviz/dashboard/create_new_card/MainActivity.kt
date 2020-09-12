@@ -135,10 +135,10 @@ open class MainActivity : AppCompatActivity() {
                 PERM_RQST_CODE
             )
         } else {
-            loadSticker()
             testAdd(TextSticker(this), "Radha", 150f, -20f)
             testAdd2(TextSticker(this), "Lead Manager", 150f, 80f)
             testAdd3(TextSticker(this), "radha@gmail.com", 150f, 180f)
+            loadSticker()
         }
         saveCardId.setOnClickListener {
             jsonData = createJson()
