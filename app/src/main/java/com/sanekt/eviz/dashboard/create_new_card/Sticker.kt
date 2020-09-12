@@ -27,48 +27,39 @@ abstract class Sticker {
             const val BOTTOM = 1 shl 4
         }
     }
-
+    var dataType=""
     private val matrixValues = FloatArray(9)
     private val unrotatedWrapperCorner = FloatArray(8)
     private val unrotatedPoint = FloatArray(2)
     private val boundPoints = FloatArray(8)
     private val mappedBounds = FloatArray(8)
     private val trappedRect = RectF()
-    val matrix = Matrix()
+    var matrix = Matrix()
+    var color:Int?=null
     var isFlippedHorizontally = false
-        set
     var isFlippedVertically = false
-        set
-
     fun setFlippedHorizontally(flippedHorizontally: Boolean): Sticker {
         isFlippedHorizontally = flippedHorizontally
         return this
     }
-
     fun setFlippedVertically(flippedVertically: Boolean): Sticker {
         isFlippedVertically = flippedVertically
         return this
     }
-
     fun setMatrix(matrix: Matrix?): Sticker {
         this.matrix.set(matrix)
         return this
     }
-
     abstract fun draw(canvas: Canvas)
     abstract fun getWidth(): Int
-
     abstract fun getHeight(): Int
-    //    abstract val getWidth(): Int
-//    abstract val getHeight(): Int
-    abstract fun setDrawable(drawable: Drawable): Sticker?
+//    abstract fun setDrawable(drawable: Drawable): Sticker?
     abstract fun setAlpha(@IntRange(from = 0, to = 255) alpha: Int): Sticker
     fun getBoundPoints(): FloatArray {
         val points = FloatArray(8)
         getBoundPoints(points)
         return points
     }
-
     fun getBoundPoints(points: FloatArray) {
         if (!isFlippedHorizontally) {
             if (!isFlippedVertically) {
@@ -205,7 +196,7 @@ abstract class Sticker {
     /**
      * This method calculates rotation angle for given Matrix object.
      */
-    fun getMatrixAngle(matrix: Matrix): Float {
+    private fun getMatrixAngle(matrix: Matrix): Float {
         return Math.toDegrees(-Math.atan2(getMatrixValue(matrix, Matrix.MSKEW_X).toDouble(),
                 getMatrixValue(matrix, Matrix.MSCALE_X).toDouble())).toFloat()
     }
@@ -214,11 +205,16 @@ abstract class Sticker {
         matrix.getValues(matrixValues)
         return matrixValues[valueIndex]
     }
+    fun setMatrixValue(matrix: Matrix) {
+        for (i in 0..9) {
+            matrixValues[i]=getMatrixValue(matrix,i)
+        }
+    }
 
     fun contains(x: Float, y: Float): Boolean {
         return contains(floatArrayOf(x, y))
     }
-    public abstract fun getDrawable(): Drawable
+//    public abstract fun getDrawable(): Drawable
     operator fun contains(point: FloatArray): Boolean {
         val tempMatrix = Matrix()
         tempMatrix.setRotate(-currentAngle)

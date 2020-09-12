@@ -14,8 +14,8 @@ import java.io.IOException
 /**
  * @author wupanjie
  */
-open class DrawableSticker(
-    private var drawable: Drawable,
+open class DrawableSticker1(
+//    private var drawable: Drawable,
     mainActivity: Context,
     s: String,
     uri: String
@@ -30,8 +30,8 @@ open class DrawableSticker(
 //        return drawable
 //    }
 //
-//    override fun setDrawable(drawable: Drawable): DrawableSticker {
-//        this.drawable = drawable
+//    override fun setDrawable(drawable: Drawable): DrawableSticker1 {
+////        this.drawable = drawable
 //        return this
 //    }
 
@@ -69,10 +69,10 @@ open class DrawableSticker(
             if (bitmap != null) {
                 canvas.drawBitmap(bitmap!!, Matrix(), null)
             }
-        }else{
+        }/*else{
             drawable.bounds = realBounds
             drawable.draw(canvas)
-        }
+        }*/
 
         canvas.restore()
     }
@@ -92,8 +92,8 @@ open class DrawableSticker(
         bm.recycle()
         return resizedBitmap
     }
-    override fun setAlpha(@IntRange(from = 0, to = 255) alpha: Int): DrawableSticker {
-        drawable.alpha = alpha
+    override fun setAlpha(@IntRange(from = 0, to = 255) alpha: Int): DrawableSticker1 {
+//        drawable.alpha = alpha
         return this
     }
 
@@ -101,21 +101,21 @@ open class DrawableSticker(
         return if(TextUtils.isEmpty(from) && bitmap!=null || from.equals("uri") || from.equals("logo")){
             100
         }else
-            drawable.intrinsicWidth
+            100
     }
 
     override fun getHeight(): Int {
         return if(TextUtils.isEmpty(from) && bitmap!=null || from.equals("uri") || from.equals("logo")){
             100
         }else
-            drawable.intrinsicHeight
+            100
     }
 
     override fun release() {
         super.release()
-        if (drawable != null) {
-//            drawable = null
-        }
+//        if (drawable != null) {
+////            drawable = null
+//        }
     }
 
     init {

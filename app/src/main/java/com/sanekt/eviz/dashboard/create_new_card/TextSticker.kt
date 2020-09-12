@@ -31,7 +31,11 @@ open class TextSticker @JvmOverloads constructor(private val context: Context, d
     private var drawable: Drawable?
     private var staticLayout: StaticLayout? = null
     private var alignment: Layout.Alignment
+    private var textColor: Int = 0
+    private var typeface: Int = 0
     var text: String? = null
+        set
+    var text1: String? = null
         set
     /**
      * Upper bounds for text size.
@@ -99,16 +103,16 @@ open class TextSticker @JvmOverloads constructor(private val context: Context, d
         return this
     }
 
-    override fun getDrawable(): Drawable {
-        return drawable!!
-    }
-
-    override fun setDrawable(drawable: Drawable): TextSticker {
-        this.drawable = drawable
-        realBounds[0, 0, getWidth()] = getHeight()
-        textRect[0, 0, getWidth()] = getHeight()
-        return this
-    }
+//    override fun getDrawable(): Drawable {
+//        return drawable!!
+//    }
+//
+//    override fun setDrawable(drawable: Drawable): TextSticker {
+//        this.drawable = drawable
+//        realBounds[0, 0, getWidth()] = getHeight()
+//        textRect[0, 0, getWidth()] = getHeight()
+//        return this
+//    }
 
     fun setDrawable(drawable: Drawable, region: Rect?): TextSticker {
         this.drawable = drawable
@@ -125,17 +129,40 @@ open class TextSticker @JvmOverloads constructor(private val context: Context, d
         textPaint.typeface = typeface
         return this
     }
+    fun setTypefaceNo(typeface1: Int?): TextSticker {
+        if (typeface1 != null) {
+            typeface = typeface1
+        }
+        return this
+    }
 
     fun setTextColor(@ColorInt color: Int): TextSticker {
         textPaint.color = color
+        textColor=color
         return this
+    }
+    fun getTextColor(): Int {
+        textColor
+        return textPaint.color
+    }
+    fun getTypeFace(): Typeface? {
+        return textPaint.typeface
+    }
+    fun getTypeFaceNo(): Int? {
+        return typeface
     }
 
     fun setTextAlign(alignment: Layout.Alignment): TextSticker {
         this.alignment = alignment
         return this
     }
-
+    fun setTextColorCode(color: Int): TextSticker {
+        this.textColor = color
+        return this
+    }
+    fun getTextColorCode(): Int {
+        return textColor
+    }
     fun setMaxTextSize(@Dimension(unit = Dimension.SP) size: Float): TextSticker {
         textPaint.textSize = convertSpToPx(size)
         maxTextSizePixels = textPaint.textSize
@@ -161,6 +188,7 @@ open class TextSticker @JvmOverloads constructor(private val context: Context, d
 
     fun setText(text: String?): TextSticker {
         this.text = text
+        this.text1 = text
         return this
     }
 
@@ -245,6 +273,9 @@ open class TextSticker @JvmOverloads constructor(private val context: Context, d
      */
     private fun convertSpToPx(scaledPixels: Float): Float {
         return scaledPixels * context.resources.displayMetrics.scaledDensity
+    }
+    private fun setTypeFace(){
+        textPaint.typeface= Typeface.DEFAULT_BOLD
     }
 
     companion object {
