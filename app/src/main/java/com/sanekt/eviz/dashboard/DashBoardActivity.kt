@@ -91,6 +91,10 @@ class DashBoardActivity : AppCompatActivity(),MyCardListAdapter.ItemclickListene
         if (listAllFiles != null && listAllFiles.isNotEmpty()) {
             for (currentFile in listAllFiles) {
                 if (currentFile.name.endsWith(".jpg")) {
+                    // File absolute path
+                    Log.e("downloadFilePath", currentFile.getAbsolutePath())
+                    // File Name
+                    Log.e("downloadFileName", currentFile.getName())
                     fileList.add(currentFile.absoluteFile)
                 }
             }
