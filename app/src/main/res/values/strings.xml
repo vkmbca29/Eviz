@@ -20,4 +20,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_dash_board">DashBoardActivity</string>
+    <string name="facebook_app_id">361726031886816</string>
+    <string name="fb_login_protocol_scheme">fb361726031886816</string>
 </resources>

@@ -56,8 +56,11 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
 
     // UI Test
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //facebook api
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
 
     //navigation fragment
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
@@ -69,4 +72,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
 }
