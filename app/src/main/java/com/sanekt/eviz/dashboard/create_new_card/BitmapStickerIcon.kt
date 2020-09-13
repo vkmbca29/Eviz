@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import androidx.annotation.IntDef
 import android.view.MotionEvent
-import com.sanekt.eviz.MainActivity
 import com.sanekt.eviz.R
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy

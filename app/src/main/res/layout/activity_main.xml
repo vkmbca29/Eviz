@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".CropActivity">
+    tools:context=".dashboard.create_new_card.CropActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -99,4 +99,12 @@
             </HorizontalScrollView>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
+    <Button
+        android:id="@+id/saveCardId"
+        android:layout_width="match_parent"
+        android:background="@color/blue"
+        android:layout_height="wrap_content"
+        android:text="Preview"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

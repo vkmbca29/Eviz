@@ -1,4 +1,4 @@
-package com.sanekt.eviz.util
+package com.sanekt.eviz.dashboard.create_new_card
 
 import android.view.MotionEvent
 import android.widget.Toast

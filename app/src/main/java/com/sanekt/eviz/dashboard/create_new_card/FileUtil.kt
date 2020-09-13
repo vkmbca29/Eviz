@@ -1,4 +1,4 @@
-package com.sanekt.eviz
+package com.sanekt.eviz.dashboard.create_new_card
 
 import android.content.Context
 import android.os.Environment

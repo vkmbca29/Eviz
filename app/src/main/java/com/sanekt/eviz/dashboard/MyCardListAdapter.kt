@@ -1,25 +1,33 @@
 package com.sanekt.eviz.dashboard
 
 import android.content.Context
-import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.sanekt.eviz.R
 import com.sanekt.eviz.dashboard.model.DashboardModel
+import java.io.File
 
 
-class MyCardListAdapter(private val dashBoardModel: ArrayList<DashboardModel>,context: DashBoardActivity) :
+class MyCardListAdapter(
+    private val dashBoardModel: ArrayList<DashboardModel>,
+    context: DashBoardActivity,
+    fileList: ArrayList<File>
+) :
     Adapter<MyCardListAdapter.MyViewHolder>() {
 
     var listener:ItemclickListener? = null
+    var context1:Context? = null
+    var fileList:ArrayList<File>? = null
     init {
         listener = context
+        context1 = context
+        this.fileList = fileList
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -46,14 +54,14 @@ class MyCardListAdapter(private val dashBoardModel: ArrayList<DashboardModel>,co
     }
 
     override fun getItemCount() =
-        dashBoardModel.size
+        fileList!!.size
 
 
     override fun onBindViewHolder(holder: MyCardListAdapter.MyViewHolder, position: Int) {
         holder.sharedCard?.setOnClickListener {
           listener?.onShareButtonCLick("this is demo card link")
         }
-
+        holder.cardView!!.setImageURI(Uri.parse(fileList?.get(position).toString()))
     }
     interface ItemclickListener{
         fun onShareButtonCLick(text:String)

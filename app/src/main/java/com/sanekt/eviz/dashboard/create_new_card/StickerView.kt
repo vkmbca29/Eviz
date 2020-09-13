@@ -5,7 +5,6 @@ import android.content.res.TypedArray
 import android.graphics.*
 import android.os.SystemClock
 import androidx.annotation.IntDef
-import androidx.core.content.ContextCompat
 import androidx.core.view.MotionEventCompat
 import androidx.core.view.ViewCompat
 import android.util.AttributeSet
@@ -13,12 +12,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.ViewConfiguration
 import android.widget.FrameLayout
-import com.sanekt.eviz.MainActivity
 import com.sanekt.eviz.R
-import com.sanekt.eviz.dashboard.create_new_card.StickerUtils.notifySystemGallery
-import com.sanekt.eviz.dashboard.create_new_card.StickerUtils.saveImageToGallery
-import com.sanekt.eviz.dashboard.create_new_card.StickerUtils.notifySystemGallery
-import com.sanekt.eviz.dashboard.create_new_card.StickerUtils.saveImageToGallery
 import java.io.File
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
@@ -86,6 +80,8 @@ class StickerView @JvmOverloads constructor(context: Context, attrs: AttributeSe
     var minClickDelayTime = DEFAULT_MIN_CLICK_DELAY_TIME
         private set
 
+
+    var dataType=""
     fun configDefaultIcons() {
 //        val deleteIcon = BitmapStickerIcon(
 //            ContextCompat.getDrawable(context, R.drawable.sticker_ic_close_white_18dp),
@@ -527,9 +523,9 @@ class StickerView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 val offsetY = (height - currentSticker!!.getHeight()) / 2f
                 sticker.matrix.postTranslate(offsetX, offsetY)
                 val scaleFactor: Float = if (width < height) {
-                    width / currentSticker!!.getDrawable().intrinsicWidth
+                    width / 100
                 } else {
-                    height / currentSticker!!.getDrawable().intrinsicHeight
+                    height / 100
                 }
                 sticker.matrix.postScale(scaleFactor / 2f, scaleFactor / 2f, width / 2f, height / 2f)
             }
@@ -573,30 +569,43 @@ class StickerView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         invalidate()
     }
 
-    fun addSticker(sticker: Sticker): StickerView {
-        return addSticker(sticker, Sticker.Position.LEFT)
-    }
+//    fun addSticker(sticker: Sticker): StickerView {
+//        return addSticker(sticker, Sticker.Position.LEFT,"")
+//    }
 
     fun addSticker(sticker: Sticker,
-                   @Sticker.Position position: Int): StickerView {
+                   @Sticker.Position position: Int,save:String,stickerNo: String ): StickerView {
+        if(stickerNo!=""){
+            sticker.dataType=stickerNo
+        }
         if (ViewCompat.isLaidOut(this)) {
-            addStickerImmediately(sticker, position)
+            addStickerImmediately(sticker, position,save)
         } else {
-            post { addStickerImmediately(sticker, position) }
+            post { addStickerImmediately(sticker, position, save) }
         }
         return this
     }
 
-    protected fun addStickerImmediately(sticker: Sticker, @Sticker.Position position: Int) {
-        setStickerPosition(sticker, position)
+    protected fun addStickerImmediately(
+        sticker: Sticker, @Sticker.Position position: Int,
+        save: String
+    ) {
+//        setStickerPosition(sticker, position)
         val scaleFactor: Float
         val widthScaleFactor: Float
         val heightScaleFactor: Float
-        widthScaleFactor = width.toFloat() / sticker.getDrawable().intrinsicWidth
-        heightScaleFactor = height.toFloat() / sticker.getDrawable().intrinsicHeight
-        scaleFactor = if (widthScaleFactor > heightScaleFactor) heightScaleFactor else widthScaleFactor
-        sticker.matrix
-                .postScale(scaleFactor / 2, scaleFactor / 2, width / 2.toFloat(), height / 2.toFloat())
+//        widthScaleFactor = width.toFloat() / 60
+//        heightScaleFactor = height.toFloat() / 60
+//        scaleFactor = if (widthScaleFactor > heightScaleFactor) heightScaleFactor else widthScaleFactor
+        if(save=="") {
+//            sticker.matrix
+//                .postScale(
+//                    scaleFactor / 2,
+//                    scaleFactor / 2,
+//                    width / 2.toFloat(),
+//                    height / 2.toFloat()
+//                )
+        }
         currentSticker = sticker
         stickers.add(sticker)
         if (onStickerOperationListener != null) {
@@ -627,7 +636,7 @@ class StickerView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         } else {
             offsetX /= 2f
         }
-        sticker.matrix.postTranslate(offsetX, offsetY)
+        sticker.matrix.postTranslate(150f,-20f)
     }
 
     fun getStickerPoints(sticker: Sticker?): FloatArray {

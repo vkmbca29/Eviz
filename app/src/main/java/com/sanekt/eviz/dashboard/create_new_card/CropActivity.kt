@@ -1,4 +1,4 @@
-package com.sanekt.eviz
+package com.sanekt.eviz.dashboard.create_new_card
 
 import android.app.Activity
 import android.content.Context
@@ -7,9 +7,9 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.sanekt.eviz.R
 import java.io.File
 
 class CropActivity : AppCompatActivity() {
@@ -29,7 +29,7 @@ private lateinit var context:Context
             }
             // Image resolution will be less than 512 x 512
             .maxResultSize(512, 512)
-            .start(Companion.PROFILE_IMAGE_REQ_CODE)
+            .start(PROFILE_IMAGE_REQ_CODE)
     }
 
     companion object {
