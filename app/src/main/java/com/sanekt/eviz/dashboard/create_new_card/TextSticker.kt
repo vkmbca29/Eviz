@@ -13,6 +13,7 @@ import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
 import com.sanekt.eviz.R
+import java.lang.Exception
 
 /**
  * Customize your sticker with text and image background.
@@ -71,15 +72,23 @@ open class TextSticker @JvmOverloads constructor(private val context: Context, d
         canvas.save()
         canvas.concat(matrix)
         if (textRect.width() == getWidth()) {
-            val dy = getHeight() / 2 - staticLayout!!.getHeight() / 2
-            // center vertical
-            canvas.translate(0f, dy.toFloat())
+            try {
+                val dy = getHeight() / 2 - staticLayout!!.getHeight() / 2
+                // center vertical
+                canvas.translate(0f, dy.toFloat())
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
         } else {
             val dx = textRect.left
             val dy = textRect.top + textRect.height() / 2 - staticLayout!!.getHeight() / 2
             canvas.translate(dx.toFloat(), dy.toFloat())
         }
-        staticLayout!!.draw(canvas)
+        try {
+            staticLayout!!.draw(canvas)
+        }catch (e:Exception){
+
+        }
         canvas.restore()
     }
 

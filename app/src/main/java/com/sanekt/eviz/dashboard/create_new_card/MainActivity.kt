@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Typeface
@@ -32,6 +31,7 @@ import com.sanekt.eviz.dashboard.model.ImageModel
 import com.sanekt.eviz.dashboard.model.TextModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import java.lang.StringBuilder
 import java.util.*
 
 open class MainActivity : AppCompatActivity() {
@@ -161,39 +161,31 @@ open class MainActivity : AppCompatActivity() {
         var matrix2 = sticker1!!.matrix
         var matrix3 = sticker2!!.matrix
         var matrix4 = sticker3!!.matrix
-
-        var imageX = stickerImage?.getMatrixValue(stickerImage!!.matrix, Matrix.MTRANS_X)
-        var imageY = stickerImage?.getMatrixValue(stickerImage!!.matrix, Matrix.MTRANS_Y)
-
-        var imageScaleX = stickerImage?.currentScale
-//        var imageScaleY=stickerImage?.getMatrixValue(stickerImage!!.matrix,Matrix.MTRANS_Y)
-
-        var imageWidthX = stickerImage?.currentWidth
-        var imageHeightY = stickerImage?.currentHeight
-        var imageAngle = stickerImage?.currentAngle
-
         var gson = Gson()
-        var matrixJson1 = gson.toJson(matrix1)
-        var matrixJson2 = gson.toJson(matrix2)
-        var matrixJson3 = gson.toJson(matrix3)
-        var matrixJson4 = gson.toJson(matrix4)
-        val card1 = gson.fromJson(matrixJson1, Matrix::class.java)
+        var builder1 = getImageData(matrix1, stickerImage!!)
+        var builder2 = getTextData(matrix2, sticker1!!)
+        var builder3 = getTextData(matrix3, sticker2!!)
+        var builder4 = getTextData(matrix4, sticker3!!)
+        var matrixJson1 = gson.toJson(builder1)
+        var matrixJson2 = gson.toJson(builder2)
+        var matrixJson3 = gson.toJson(builder3)
+        var matrixJson4 = gson.toJson(builder4)
 
         var image =
-            ImageModel(matrix1, uri)
+            ImageModel(matrixJson1, uri)
         var text1 = TextModel(
-            matrix2,
+            matrixJson2,
             sticker1?.text, sticker1!!.getTextColor(),
             sticker1?.getTypeFaceNo()
         )
         var text2 = TextModel(
-            matrix3,
+            matrixJson3,
             sticker2?.text,
             sticker2?.getTextColor(),
             sticker2?.getTypeFaceNo()
         )
         var text3 = TextModel(
-            matrix4,
+            matrixJson4,
             sticker3?.text,
             sticker3?.getTextColor(),
             sticker3?.getTypeFaceNo()
@@ -211,6 +203,46 @@ open class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         return json.toString()
+    }
+
+    private fun getTextData(
+        matrix1: Matrix,
+        sticker1: TextSticker
+    ): String {
+        var builder: StringBuilder? = StringBuilder()
+        var array: FloatArray? = FloatArray(9)
+        if (array != null) {
+            for (i in 0..8) {
+                array[i] = sticker1?.getMatrixValue(matrix1, i)!!
+                builder?.append(array[i].toString() + " ")
+            }
+        }
+        var stringArray: List<String> = builder.toString().split(" ")
+        var floatArray: FloatArray? = FloatArray(9)
+        for (i in 0..8) {
+            floatArray?.set(i, stringArray[i].toFloat())
+        }
+        return builder.toString()
+    }
+
+    private fun getImageData(
+        matrix1: Matrix,
+        stickerImage: DrawableSticker1
+    ): String {
+        var builder: StringBuilder? = StringBuilder()
+        var array: FloatArray? = FloatArray(9)
+        if (array != null) {
+            for (i in 0..8) {
+                array[i] = stickerImage?.getMatrixValue(matrix1, i)!!
+                builder?.append(array[i].toString() + " ")
+            }
+        }
+        var stringArray: List<String> = builder.toString().split(" ")
+        var floatArray: FloatArray? = FloatArray(9)
+        for (i in 0..8) {
+            floatArray?.set(i, stringArray[i].toFloat())
+        }
+        return builder.toString()
     }
 
     private fun loadSticker() {

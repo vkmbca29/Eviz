@@ -14,6 +14,7 @@ import android.view.ViewConfiguration
 import android.widget.FrameLayout
 import com.sanekt.eviz.R
 import java.io.File
+import java.lang.Exception
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 import java.util.*
@@ -149,7 +150,11 @@ class StickerView @JvmOverloads constructor(context: Context, attrs: AttributeSe
     protected fun drawStickers(canvas: Canvas) {
         for (i in stickers.indices) {
             val sticker = stickers[i]
-            sticker?.draw(canvas)
+            try {
+                sticker?.draw(canvas)
+            }catch (e:Exception){
+
+            }
         }
         if (currentSticker != null && !isLocked && (showBorder || showIcons)) {
             getStickerPoints(currentSticker, bitmapPoints)

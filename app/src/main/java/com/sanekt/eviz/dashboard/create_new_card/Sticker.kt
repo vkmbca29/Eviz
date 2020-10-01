@@ -206,9 +206,7 @@ abstract class Sticker {
         return matrixValues[valueIndex]
     }
     fun setMatrixValue(matrix: Matrix) {
-        for (i in 0..9) {
-            matrixValues[i]=getMatrixValue(matrix,i)
-        }
+
     }
 
     fun contains(x: Float, y: Float): Boolean {

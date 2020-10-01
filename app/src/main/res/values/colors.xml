@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#ececf0</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="blue">#007BFF</color>
+    <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="border">#00a7FF</color>
+    <color name="light_grey">#edebe4</color>
+    <color name="startColor">#062FAE</color>
+    <color name="endColor">#458EB5</color>
 </resources>

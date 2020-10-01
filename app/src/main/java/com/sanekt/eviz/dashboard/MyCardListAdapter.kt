@@ -1,5 +1,6 @@
 package com.sanekt.eviz.dashboard
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
@@ -10,13 +11,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.sanekt.eviz.R
+import com.sanekt.eviz.dashboard.fragments.CardFragment
+import com.sanekt.eviz.dashboard.fragments.HomeFragment
 import com.sanekt.eviz.dashboard.model.DashboardModel
 import java.io.File
 
 
 class MyCardListAdapter(
     private val dashBoardModel: ArrayList<DashboardModel>,
-    context: DashBoardActivity,
+    context: CardFragment,
     fileList: ArrayList<File>
 ) :
     Adapter<MyCardListAdapter.MyViewHolder>() {
@@ -26,7 +29,7 @@ class MyCardListAdapter(
     var fileList:ArrayList<File>? = null
     init {
         listener = context
-        context1 = context
+        context1 = context.activity
         this.fileList = fileList
     }
 
