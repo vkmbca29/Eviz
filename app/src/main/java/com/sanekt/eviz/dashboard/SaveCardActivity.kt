@@ -130,8 +130,7 @@ class SaveCardActivity() : AppCompatActivity() {
     }
 
     private fun loadSticker2() {
-
-
+        card?.backgroundColor?.let { stickerView?.setBackgroundColor(it) }
         var data1 = card?.imageData
         var data2 = card?.textData1
         var data3 = card?.textData2

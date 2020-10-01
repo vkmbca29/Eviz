@@ -3,11 +3,13 @@ package com.sanekt.eviz.dashboard.create_new_card
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.Layout
@@ -22,6 +24,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.flask.colorpicker.ColorPickerView
+import com.flask.colorpicker.OnColorSelectedListener
+import com.flask.colorpicker.builder.ColorPickerClickListener
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.gson.Gson
@@ -148,10 +152,19 @@ open class MainActivity : AppCompatActivity() {
             )
             startActivity(sendIntent)
             finish()
-//            var returnIntent = Intent()
-//            returnIntent.putExtra("result", jsonData)
-//            setResult(Activity.RESULT_OK, returnIntent)
-//            finish()
+        }
+        changeBackgroundColorId.setOnClickListener {
+            ColorPickerDialogBuilder
+                .with(this)
+                .setTitle("Choose color")
+                .initialColor(R.color.black)
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener { selectedColor ->
+                    stickerView!!.setBackgroundColor(selectedColor)
+                }
+                .build()
+                .show();
         }
     }
 
@@ -190,7 +203,10 @@ open class MainActivity : AppCompatActivity() {
             sticker3?.getTextColor(),
             sticker3?.getTypeFaceNo()
         )
+        var viewColor: ColorDrawable = stickerView?.background as ColorDrawable;
+        var colorId = viewColor.getColor();
         var card = Card(
+            colorId,
             image,
             text1,
             text2,

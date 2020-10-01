@@ -9,6 +9,7 @@
     tools:context=".dashboard.create_new_card.CropActivity">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
@@ -57,48 +58,49 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:onClick="reset"
                         android:text="Reset" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:onClick="testReplace"
                         android:text="Replace" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:onClick="testRemove"
                         android:text="Remove" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:onClick="testRemoveAll"
                         android:text="RemoveAll" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:onClick="testLock"
                         android:text="Lock" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:onClick="testAdd"
                         android:text="Add" />
 
                 </LinearLayout>
             </HorizontalScrollView>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
+    <Button
+        android:id="@+id/changeBackgroundColorId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:layout_below="@+id/relativeLayout"
+        android:text="Change card background" />
     <Button
         android:id="@+id/saveCardId"
         android:layout_width="match_parent"
