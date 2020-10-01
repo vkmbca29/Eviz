@@ -16,14 +16,24 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.sanekt.eviz.R
 import com.sanekt.eviz.dashboard.DashBoardActivity
+import com.sanekt.eviz.utils.Preference
 import kotlinx.android.synthetic.main.login_button_layout.*
 
 
 class LoginActivity : AppCompatActivity() {
     lateinit var callbackManager: CallbackManager
     private var mGoogleSignInClient: GoogleSignInClient? = null
+    var preference:Preference?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        preference= Preference(this)
+        if(preference?.isSession()!!){
+            var intent=Intent(applicationContext, DashBoardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
         setContentView(R.layout.activity_login)
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -107,8 +117,13 @@ class LoginActivity : AppCompatActivity() {
     // [END revokeAccess]
     private fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
+            preference?.setSession(true)
             Toast.makeText(applicationContext, "loggedIn successfully", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(applicationContext, DashBoardActivity::class.java))
+            var intent=Intent(applicationContext, DashBoardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         } else {
             Toast.makeText(applicationContext, "logged out successfully", Toast.LENGTH_SHORT).show()
         }
