@@ -10,4 +10,10 @@
     <color name="light_grey">#edebe4</color>
     <color name="startColor">#062FAE</color>
     <color name="endColor">#458EB5</color>
+    <color name="grey_color">#D3D3D3</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="light_grey_color">#f2f2f2</color>
+    <color name="dark_grey">#93959A</color>
+    <color name="dim_grey">#696969</color>
+    <color name="light_black">#5d5d5d</color>
 </resources>

@@ -30,4 +30,10 @@
         <item name="textAllCaps">false</item>
     </style>
 
+    <style name="RadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:textColorSecondary">@color/grey_color</item>
+        <item name="colorControlNormal">@color/grey_color</item>
+    </style>
+
 </resources>

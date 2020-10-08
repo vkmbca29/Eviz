@@ -12,18 +12,21 @@ class Preference(var context: Context) :
         mEditor = preferences.edit()
         mEditor.putString(k, v)
         mEditor.apply()
+        mEditor.commit()
     }
 
     fun setLong(k: String?, v: Long?) {
         mEditor = preferences.edit()
         mEditor.putLong(k, v!!)
         mEditor.apply()
+        mEditor.commit()
     }
 
     fun setInt(k: String?, v: Int) {
         mEditor = preferences.edit()
         mEditor.putLong(k, v.toLong())
         mEditor.apply()
+        mEditor.commit()
     }
 
     operator fun get(k: String?): String? {
@@ -52,6 +55,11 @@ class Preference(var context: Context) :
     companion object {
         const val PREF_NAME = "eviz"
         const val MODE = 0
+
+        const val FIRST_NAME = "firstName"
+        const val LAST_NAME = "lastName"
+        const val PIC_URL = "picUrl"
+        const val EMAIL = "email"
     }
 
     init {
@@ -68,4 +76,5 @@ class Preference(var context: Context) :
     fun setSession(b: Boolean) {
         preferences.edit().putBoolean("ili", b).apply()
     }
+
 }

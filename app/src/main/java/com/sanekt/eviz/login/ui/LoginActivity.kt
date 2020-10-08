@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.sanekt.eviz.R
 import com.sanekt.eviz.dashboard.DashBoardActivity
+import com.sanekt.eviz.dashboard.UserProfileActivity
 import com.sanekt.eviz.utils.Preference
 import kotlinx.android.synthetic.main.login_button_layout.*
 
@@ -27,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preference= Preference(this)
+
         if(preference?.isSession()!!){
             var intent=Intent(applicationContext, DashBoardActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -117,9 +119,27 @@ class LoginActivity : AppCompatActivity() {
     // [END revokeAccess]
     private fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
-            preference?.setSession(true)
-            Toast.makeText(applicationContext, "loggedIn successfully", Toast.LENGTH_SHORT).show()
-            var intent=Intent(applicationContext, DashBoardActivity::class.java)
+
+            val id = account.id
+            var fName = account.givenName
+            var lName = account.familyName
+            var email = account.email
+            val picUrl = if (account.photoUrl != null) {
+                account.photoUrl.toString()
+            } else {
+                ""
+            }
+
+            if (fName == null) fName = ""
+
+             if (lName == null) lName = ""
+
+            preference?.set(Preference.FIRST_NAME, fName)
+            preference?.set(Preference.LAST_NAME, lName)
+            preference?.set(Preference.EMAIL, email)
+            preference?.set(Preference.PIC_URL, picUrl)
+//            Toast.makeText(applicationContext, "loggedIn successfully", Toast.LENGTH_SHORT).show()
+            var intent=Intent(applicationContext, UserProfileActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
