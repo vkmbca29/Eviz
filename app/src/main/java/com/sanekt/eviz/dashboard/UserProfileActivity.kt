@@ -15,7 +15,7 @@ import com.sanekt.eviz.R
 import com.sanekt.eviz.login.ui.LoginActivity
 import com.sanekt.eviz.utils.Preference
 import kotlinx.android.synthetic.main.activity_user_profile.*
-
+//confirmation
 class UserProfileActivity : AppCompatActivity() {
 
     private var preference: Preference? = null
