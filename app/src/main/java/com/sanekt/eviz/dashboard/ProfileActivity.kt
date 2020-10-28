@@ -3,6 +3,7 @@ package com.sanekt.eviz.dashboard
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.sanekt.eviz.R
@@ -36,6 +37,7 @@ class ProfileActivity : AppCompatActivity() {
             preference!!.prefClear()
             val gso =
                 GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+            LoginManager.getInstance().logOut();
             val googleSignInClient = GoogleSignIn.getClient(this, gso)
             googleSignInClient.signOut()
             var intent = Intent(this, LoginActivity::class.java)

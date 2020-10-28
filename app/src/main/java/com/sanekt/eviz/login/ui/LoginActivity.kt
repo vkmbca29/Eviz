@@ -19,18 +19,19 @@ import com.sanekt.eviz.dashboard.DashBoardActivity
 import com.sanekt.eviz.dashboard.UserProfileActivity
 import com.sanekt.eviz.utils.Preference
 import kotlinx.android.synthetic.main.login_button_layout.*
+import org.json.JSONException
 
 
 class LoginActivity : AppCompatActivity() {
     lateinit var callbackManager: CallbackManager
     private var mGoogleSignInClient: GoogleSignInClient? = null
-    var preference:Preference?=null
+    var preference: Preference? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        preference= Preference(this)
+        preference = Preference(this)
 
-        if(preference?.isSession()!!){
-            var intent=Intent(applicationContext, DashBoardActivity::class.java)
+        if (preference?.isSession()!!) {
+            var intent = Intent(applicationContext, DashBoardActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -48,70 +49,75 @@ class LoginActivity : AppCompatActivity() {
         google_login_button.setOnClickListener {
             signIn()
         }
-        // [END onActivityResult]
-
-        // [START configure_signin]
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         val gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build()
-        // [START build_client]
-        // Build a GoogleSignInClient with the options specified by gso.
-        // [END configure_signin]
-
-        // [START build_client]
-        // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-        // [END build_client]
         AccessToken.getCurrentAccessToken()
         callbackManager = CallbackManager.Factory.create()
-        facebook_login_button.registerCallback(callbackManager,
-            object : FacebookCallback<LoginResult> {
-                override fun onSuccess(result: LoginResult?) {
-                    Log.i("vikram", "onsuccess")
-//                TODO("Not yet implemented")
+
+        LoginManager.getInstance().registerCallback(callbackManager,
+            object : FacebookCallback<LoginResult?> {
+                override fun onSuccess(loginResult: LoginResult?) {
+                    // App code
+                    Toast.makeText(applicationContext, "login successfully", Toast.LENGTH_SHORT)
+                        .show()
+                    val request =
+                        GraphRequest.newMeRequest(
+                            AccessToken.getCurrentAccessToken()
+                        ) { obj, response ->
+                            try {
+                                var profile_name:String? = obj.get("name").toString()
+                                var fb_id = obj.get("id").toString()
+//                                var email_id = obj.getString("email")
+//                                var gender = obj.getString("gender")
+//                                if (obj.has("first_name"))
+//                                    obj.getString("first_name")
+//                                if (obj.has("last_name"))
+//                                    obj.getString("last_name")
+//                                if (obj.has("email"))
+//                                    obj.getString("email")
+//                                if (obj.has("gender"))
+//                                    obj.getString("gender")
+//                                if (obj.has("birthday"))
+//                                    obj.getString("birthday")
+//                                if (obj.has("location"))
+//                                    obj.getJSONObject("location").getString("name")
+                                var uri =
+                                    "https://graph.facebook.com/$fb_id/picture?width=500&width=500"
+
+                                preference?.set(Preference.FIRST_NAME, profile_name)
+                                preference?.set(Preference.LAST_NAME, "")
+                                preference?.set(Preference.EMAIL, "")
+                                preference?.set(Preference.PIC_URL, "")
+                                var intent = Intent(applicationContext, UserProfileActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                            } catch (e: JSONException) {
+                                // TODO Auto-generated catch block
+                                //  e.printStackTrace();
+                            }
+                        }
+
+                    request.executeAsync()
+
                 }
 
                 override fun onCancel() {
-                    Log.i("vikram", "onCancel")
+                    // App code
+                    Toast.makeText(applicationContext, "cancel", Toast.LENGTH_SHORT).show()
 
-//                TODO("Not yet implemented")
                 }
 
-                override fun onError(error: FacebookException?) {
-                    val accessToken = AccessToken.getCurrentAccessToken()
-                    val isLoggedIn = accessToken != null && !accessToken.isExpired
-                    Log.i("vikram", "onError")
-//                TODO("Not yet implemented")
+                override fun onError(exception: FacebookException) {
+                    // App code
+                    Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+
                 }
-
-
             })
-        LoginManager.getInstance().retrieveLoginStatus(this, object : LoginStatusCallback {
-            override fun onCompleted(accessToken: AccessToken) {
-                Log.i("vikram", "onsuccess")
-                val accessToken = AccessToken.getCurrentAccessToken()
-                val isLoggedIn = accessToken != null && !accessToken.isExpired
-                Log.i("vikram", "onsuccess")
-                // User was previously logged in, can log them in directly here.
-                // If this callback is called, a popup notification appears that says
-                // "Logged in as <User Name>"
-            }
-
-            override fun onFailure() {
-                // No access token could be retrieved for the user
-            }
-
-            override fun onError(exception: Exception) {
-                // An error occurred
-            }
-        })
-
-        // [START on_start_sign_in]
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
         val account = GoogleSignIn.getLastSignedInAccount(this)
 
     }
@@ -132,14 +138,14 @@ class LoginActivity : AppCompatActivity() {
 
             if (fName == null) fName = ""
 
-             if (lName == null) lName = ""
+            if (lName == null) lName = ""
 
             preference?.set(Preference.FIRST_NAME, fName)
             preference?.set(Preference.LAST_NAME, lName)
             preference?.set(Preference.EMAIL, email)
             preference?.set(Preference.PIC_URL, picUrl)
 //            Toast.makeText(applicationContext, "loggedIn successfully", Toast.LENGTH_SHORT).show()
-            var intent=Intent(applicationContext, UserProfileActivity::class.java)
+            var intent = Intent(applicationContext, UserProfileActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -150,8 +156,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
