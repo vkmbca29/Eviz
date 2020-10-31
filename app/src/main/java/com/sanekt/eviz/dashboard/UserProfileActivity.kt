@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.*
 import com.bumptech.glide.Glide
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.credentials.Credential
 import com.google.android.gms.auth.api.credentials.Credentials
 import com.google.android.gms.auth.api.credentials.HintRequest
@@ -15,7 +16,7 @@ import com.sanekt.eviz.R
 import com.sanekt.eviz.login.ui.LoginActivity
 import com.sanekt.eviz.utils.Preference
 import kotlinx.android.synthetic.main.activity_user_profile.*
-
+//confirmation
 class UserProfileActivity : AppCompatActivity() {
 
     private var preference: Preference? = null
@@ -97,6 +98,7 @@ class UserProfileActivity : AppCompatActivity() {
         val gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
+        LoginManager.getInstance().logOut();
         googleSignInClient.signOut()
         var intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
