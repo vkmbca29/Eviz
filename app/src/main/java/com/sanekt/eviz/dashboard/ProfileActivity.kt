@@ -21,17 +21,17 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         preference= Preference(this)
-        termsId.setOnClickListener {
-            var da=getTermsString()
-            var intent = Intent(this, ShowTextActivity::class.java)
-            intent.putExtra("text",da)
-            startActivity(intent)
-        }
-        privacyId.setOnClickListener {
-            var intent = Intent(this, ShowTextActivity::class.java)
-            intent.putExtra("text", resources.getString(R.string.privacy_text))
-            startActivity(intent)
-        }
+//        termsId.setOnClickListener {
+//            var da=getTermsString()
+//            var intent = Intent(this, ShowTextActivity::class.java)
+//            intent.putExtra("text",da)
+//            startActivity(intent)
+//        }
+//        privacyId.setOnClickListener {
+//            var intent = Intent(this, ShowTextActivity::class.java)
+//            intent.putExtra("text", resources.getString(R.string.privacy_text))
+//            startActivity(intent)
+//        }
         logoutId.setOnClickListener {
             preference!!.prefClear()
             val gso =

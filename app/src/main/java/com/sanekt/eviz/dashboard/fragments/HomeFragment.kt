@@ -33,20 +33,20 @@ class HomeFragment : Fragment() {
             CardFragment(),
             "My Cards"
         )
-        fragmentPageAdapter!!.addFragment(
+        fragmentPageAdapter.addFragment(
             CardFragment(),
             "Received Ca.."
         )
-        fragmentPageAdapter!!.addFragment(
+        fragmentPageAdapter.addFragment(
             CardFragment(),
             "Templates"
         )
-        fragmentPageAdapter!!.addFragment(
+        fragmentPageAdapter.addFragment(
             CardFragment(),
             "Loyalty Card"
         )
 
-        viewPager!!.adapter = fragmentPageAdapter
+        viewPager?.adapter = fragmentPageAdapter
         tabLayout!!.setupWithViewPager(viewPager)
 
 //        for (i in 0 until tabLayout!!.tabCount) {
